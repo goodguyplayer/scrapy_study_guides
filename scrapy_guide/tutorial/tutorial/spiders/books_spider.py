@@ -19,3 +19,6 @@ class BooksSpider(scrapy.Spider):
                 'price' : book.css('div.product_price p.price_color::text').extract_first(),
                 #'is_instock' : "",
             }
+        next_page = response.css('ul.pager li.next a::attr(href)').get()
+        if next_page is not None:
+            yield response.follow(next_page, self.parse)
