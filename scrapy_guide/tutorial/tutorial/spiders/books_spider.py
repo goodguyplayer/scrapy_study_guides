@@ -1,8 +1,9 @@
+import scrapy
 from pathlib import Path
 from tutorial.itemsloaders import BookItemLoader
 from tutorial.items import BookItem
+from scrapy.exceptions import CloseSpider
 
-import scrapy
 
 class BooksSpider(scrapy.Spider):
     name = "books"
@@ -10,8 +11,12 @@ class BooksSpider(scrapy.Spider):
     start_urls = [
         'https://books.toscrape.com/',
     ]
+    handle_httpstatus_list = [404] # to catch 404 with callback
 
     def parse(self, response):
+
+        if response.status == 404:
+            raise CloseSpider('Received 404 Response')
         
         for book in response.css("article.product_pod"):
             book_item = BookItemLoader(item=BookItem(), selector=book)
