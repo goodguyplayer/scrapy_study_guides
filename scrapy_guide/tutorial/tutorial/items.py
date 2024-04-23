@@ -10,3 +10,12 @@ class TutorialItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+
+class BookItem(scrapy.Item):
+    title = scrapy.Field()
+    rating = scrapy.Field()
+    url = scrapy.Field()
+    image_url = scrapy.Field()
+    price = scrapy.Field()
+    
