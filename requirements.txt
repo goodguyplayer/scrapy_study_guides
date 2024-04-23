@@ -1,3 +1,4 @@
 Scrapy
 scrapy-user-agents
 scrapyd
+scrapyd-client @ git+https://github.com/scrapy/scrapyd-client
