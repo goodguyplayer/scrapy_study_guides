@@ -1,4 +1,5 @@
 from pathlib import Path
+from tutorial.itemsloaders import BookItemLoader
 from tutorial.items import BookItem
 
 import scrapy
@@ -11,14 +12,16 @@ class BooksSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        book_item = BookItem()
+        
         for book in response.css("article.product_pod"):
-            book_item['title'] = book.css('h3 a::attr(title)').extract_first()
-            book_item['rating'] = book.css('p::attr(class)').extract_first().replace("star-rating ", "")
-            book_item['url'] = response.urljoin(book.css('h3 a::attr(href)').extract_first())
-            book_item['image_url'] = response.urljoin(book.css('div.image_container a img::attr(src)').extract_first())
-            book_item['price'] = book.css('div.product_price p.price_color::text').extract_first()
-            yield book_item
+            book_item = BookItemLoader(item=BookItem(), selector=book)
+            
+            book_item.add_css('title', 'h3 a::attr(title)')
+            book_item.add_css('rating', 'p::attr(class)', re="star-rating (.*)")
+            book_item.add_css('url', 'h3 a::attr(href)')
+            book_item.add_css('image_url', 'div.image_container a img::attr(src)')
+            book_item.add_css('price', 'div.product_price p.price_color::text')
+            yield book_item.load_item()
 
         next_page = response.css('ul.pager li.next a::attr(href)').get()
         if next_page is not None:
