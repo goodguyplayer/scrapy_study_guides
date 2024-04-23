@@ -3,3 +3,6 @@ https://docs.scrapy.org/en/latest/intro/tutorial.html
 
 ScrapeOps guide
 https://scrapeops.io/python-scrapy-playbook/scrapy-beginners-guide/
+
+Python Scrapy Playbook
+https://scrapeops.io/python-scrapy-playbook/
