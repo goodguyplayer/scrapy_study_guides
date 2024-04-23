@@ -66,6 +66,7 @@ AUTOTHROTTLE_ENABLED = True
 ITEM_PIPELINES = {
     "tutorial.pipelines.PriceToUSDPipeline" : 100,
     "tutorial.pipelines.DuplicatesPipeline" : 200,
+    "tutorial.pipelines.SavingToMySQLPipeline" : 300,
 #    "tutorial.pipelines.TutorialPipeline": 300,
 
 }
