@@ -62,9 +62,12 @@ DOWNLOAD_DELAY = 1
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+ITEM_PIPELINES = {
+    "tutorial.pipelines.PriceToUSDPipeline" : 100,
+    "tutorial.pipelines.DuplicatesPipeline" : 200,
 #    "tutorial.pipelines.TutorialPipeline": 300,
-#}
+
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
