@@ -51,7 +51,22 @@ class DuplicatesPipeline:
 class SavingToMySQLPipeline(object):
     def __init__(self) -> None:
         self.create_connection()
+        self.create_table_if_notexists()
 
+    
+    def create_table_if_notexists(self):
+        self.curr.execute("""
+                          CREATE TABLE IF NOT EXISTS books_scrapy (
+                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          title VARCHAR(255),
+                          rating VARCHAR(255),
+                          url VARCHAR(255),
+                          image_url VARCHAR(255),
+                          price VARCHAR(255)
+                          );
+                          """)
+        self.conn.commit()
+        
     
     def create_connection(self):
         config = dotenv_values(".env")
